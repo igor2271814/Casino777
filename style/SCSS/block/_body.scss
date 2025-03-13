@@ -1,0 +1,24 @@
+@font-face {
+    font-family: "Lincoln Electric Over";
+    src: url(../../../fonts/Lincoln_Electric_Over/LincolnElectric-Regular.ttf);
+}
+body {
+    margin: 0;
+    background: black;
+    font-family: "Lincoln Electric Over";
+}
+p {
+    color: white;
+}
+h1 {
+    color: white;
+}
+h2 {
+    color: white;
+}
+.main {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

@@ -1,0 +1,212 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "Lincoln Electric Over";
+  src: url(../../../fonts/Lincoln_Electric_Over/LincolnElectric-Regular.ttf);
+}
+body {
+  margin: 0;
+  background: black;
+  font-family: "Lincoln Electric Over";
+}
+
+p {
+  color: white;
+}
+
+h1 {
+  color: white;
+}
+
+h2 {
+  color: white;
+}
+
+.main {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+label {
+  color: white;
+}
+
+#answer {
+  opacity: 0;
+  transition: 1s;
+}
+
+#answer1 {
+  opacity: 0;
+  transition: 1s;
+}
+
+.factor {
+  display: grid;
+  color: white;
+  font-size: 50px;
+  gap: 40px;
+  grid-template-areas: "A B C D" "E E E E";
+}
+.factor form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 30px;
+}
+.factor #factor-1 {
+  grid-area: A;
+}
+.factor #factor-1 p {
+  cursor: pointer;
+  margin: 0;
+  width: 60px;
+}
+.factor #factor-2 {
+  grid-area: B;
+}
+.factor #factor-2 p {
+  cursor: pointer;
+  margin: 0;
+  width: 60px;
+}
+.factor #factor-3 {
+  grid-area: C;
+}
+.factor #factor-3 p {
+  cursor: pointer;
+  margin: 0;
+  width: 60px;
+}
+.factor #factor-4 {
+  grid-area: D;
+}
+.factor #factor-4 p {
+  cursor: pointer;
+  margin: 0;
+  width: 60px;
+}
+.factor #factor-5 {
+  grid-area: E;
+  opacity: 0;
+  transition: 0.7s;
+}
+.factor #factor-5 #win {
+  width: 0px;
+  opacity: 0;
+}
+.factor #factor-5 #win_input {
+  width: 0px;
+  opacity: 0;
+}
+.factor #factor-5 #lose {
+  width: 0px;
+  opacity: 0;
+}
+
+[id^=factor-] {
+  display: grid;
+  justify-items: center;
+}
+
+.wrapper-3 {
+  /* Кнопка перезапуска */
+  /* Оформляем логотип */
+}
+.wrapper-3 .container {
+  /* Фиксированная ширина */
+  width: 600px;
+  /* Фиксированная высота */
+  height: 200px;
+  /* Обрезаем содержимое, выходящее за границы */
+  overflow: hidden;
+  /* Позиционируем */
+  position: relative;
+  /* Сдвигаем контейнер на середину экрана */
+  left: 50%;
+  /* Компенсируем смещение, центрируя контейнер */
+  margin-left: -300px;
+  /* Закругляем углы */
+  border-radius: 30px;
+  /* Фон с радиальным градиентом*/
+  background: radial-gradient(ellipse at center, #80b0ff 1%, #5d9bfd 65%);
+  /* Добавляем тень для объёма */
+  box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
+}
+.wrapper-3 .controls,
+.wrapper-3 .logo {
+  /* Фиксированная ширина */
+  width: 80px;
+  /* Размер шрифта */
+  font-size: 40px;
+  /* Выравнивание содержимого по центру */
+  text-align: center;
+  /* Высота строки для центрирования */
+  line-height: 76px;
+  /* Серый фон */
+  background: #b5b5b5;
+  /* Отступы 0, автоцентрирование по горизонтали */
+  margin: 0 auto 0;
+  /* Эффект свечения */
+  box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
+}
+.wrapper-3 .controls {
+  /* Закругляем только нижние углы */
+  border-radius: 0 0 20px 20px;
+  /* Делаем курсор указателем, чтобы показать, что элемент кликабельный */
+  cursor: pointer;
+}
+.wrapper-3 .logo {
+  /* Отступ сверху */
+  margin-top: 50px;
+  /* Закругляем только верхние углы */
+  border-radius: 20px 20px 0 0;
+}
+.wrapper-3 .reel {
+  /* Абсолютное позиционирование внутри контейнера */
+  position: absolute;
+  /* Фиксированная ширина слота */
+  width: 200px;
+  /* Высота больше контейнера для эффекта прокрутки */
+  height: 1800%;
+  /* Применяем анимацию прокрутки */
+  animation: reel 1.75s linear 2;
+  /* Обрезаем всё, что выходит за границы */
+  overflow: hidden;
+}
+.wrapper-3 .inner {
+  /* Ширина слота */
+  width: 200px;
+  /* Высота элемента для корректного отображения эмодзи */
+  height: 66%;
+  /* Размер эмодзи */
+  font-size: 130px;
+  /* Высота строки для центрирования */
+  line-height: 216px;
+  /* Обрезаем всё, что выходит за границы */
+  overflow: hidden;
+}
+.wrapper-3 .first {
+  left: 0;
+  animation-delay: -0.5s;
+}
+.wrapper-3 .second {
+  left: 200px;
+  animation-delay: -0.2s;
+}
+.wrapper-3 .third {
+  left: 400px;
+  animation-delay: 0s;
+}
+
+@keyframes reel {
+  0% {
+    /* В начале анимации слот находится в исходном положении */
+    top: 0;
+  }
+  100% {
+    /* Слот сдвигается вверх, создавая эффект прокрутки */
+    top: -1187%;
+  }
+}/*# sourceMappingURL=style.css.map */

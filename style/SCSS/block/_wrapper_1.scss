@@ -1,0 +1,85 @@
+label {
+    color: white;
+}
+#answer {
+    opacity: 0;
+    transition: 1s;
+}
+#answer1 {
+    opacity: 0;
+    transition: 1s;
+}
+.factor {
+    display: grid;
+    color: white;
+    font-size: 50px;
+    gap: 40px;
+    grid-template-areas:
+        "A B C D"
+        "E E E E";
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 30px;
+    }
+    & #factor-1 {
+        grid-area: A;
+
+        & p {
+            cursor: pointer;
+            margin: 0;
+            width: 60px;
+        }
+    }
+    & #factor-2 {
+        grid-area: B;
+
+        & p {
+            cursor: pointer;
+            margin: 0;
+            width: 60px;
+        }
+    }
+    & #factor-3 {
+        grid-area: C;
+
+        & p {
+            cursor: pointer;
+            margin: 0;
+            width: 60px;
+        }
+    }
+    & #factor-4 {
+        grid-area: D;
+
+        & p {
+            cursor: pointer;
+            margin: 0;
+            width: 60px;
+        }
+    }
+    & #factor-5 {
+        grid-area: E;
+        opacity: 0;
+        transition: 0.7s;
+
+        & #win {
+            width: 0px;
+            opacity: 0;
+        }
+        & #win_input {
+            width: 0px;
+            opacity: 0;
+        }
+        & #lose {
+            width: 0px;
+            opacity: 0;
+        }
+    }
+}
+[id^="factor-"] {
+    display: grid;
+    justify-items: center;
+}
