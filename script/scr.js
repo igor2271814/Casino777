@@ -50,7 +50,7 @@ function bet_x(max) {
   if (koef == result) {
     money = money + (bet * koef) - bet;
     WinSound.play();
-    main.style.backgroundImage = 'url("/image/wingif.gif")';
+    main.style.backgroundImage = 'url("image/wingif.gif")';
     main.style.backgroundSize = 'cover';
     setTimeout(() => {
       main.style.backgroundImage = 'none';
