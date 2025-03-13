@@ -1,6 +1,10 @@
 const moneyInput = document.getElementById('money');
-const wright_arr = document.getElementById('arr');
-
+// Преобразуем значение в число
+let money = Number(moneyInput.value) || 1000;
+const WinSound = new Audio('audio/winsound.mp3');
+const LoseSound = new Audio('audio/losesuond.mp3');
+const wright_arr = document.getElementById('arr'); //пока нигде не используется
+const main = document.querySelector('.main');
 function saveMoney() { 
   // Обновляем поле ввода и сохраняем значение в localStorage
   moneyInput.value = money;
@@ -21,8 +25,6 @@ const check_money = function () {
     }
     return false;
 };
-// Преобразуем значение в число
-let money = Number(moneyInput.value);
 
 function random(min, max) {
   return Math.round(Math.random() * (max - min)) + min;
@@ -47,6 +49,12 @@ function bet_x(max) {
     }
   if (koef == result) {
     money = money + (bet * koef) - bet;
+    WinSound.play();
+    main.style.backgroundImage = 'url("/image/wingif.gif")';
+    main.style.backgroundSize = 'cover';
+    setTimeout(() => {
+      main.style.backgroundImage = 'none';
+    }, 7000);
     document.getElementById('win').style.opacity = '1';
     document.getElementById('win').style.width = '100%';
     document.getElementById('win_input').style.opacity = '1';
@@ -55,6 +63,7 @@ function bet_x(max) {
     document.getElementById('lose').style.opacity = '0';
     document.getElementById('lose').style.width = '0%';
   } else {
+    LoseSound.play();
     document.getElementById('win').style.opacity = '0';
     document.getElementById('win').style.width = '0%';
     document.getElementById('win_input').style.opacity = '0';
@@ -155,19 +164,34 @@ function emojiCode() {
    generateEmoji(emojiList03);
  }
  // Обновляем содержимое элементов с классами .first, .second и .third,
- // вставляя внутрь два дива с классом .inner, содержащие эмодзи из соответствующих массивов
- document.querySelector(".first").innerHTML = `
-   <div class="inner">${emojiList01.join("")}</div>
-   <div class="inner">${emojiList01.join("")}</div>
- `;
- document.querySelector(".second").innerHTML = `
-   <div class="inner">${emojiList02.join("")}</div>
-   <div class="inner">${emojiList02.join("")}</div>
- `;
- document.querySelector(".third").innerHTML = `
-   <div class="inner">${emojiList03.join("")}</div>
-   <div class="inner">${emojiList03.join("")}</div>
- `;
+  // Задаем финальные эмодзи
+  const finalEmoji01 = emojiList01[emojiList01.length - 1];
+  const finalEmoji02 = emojiList02[emojiList02.length - 1];
+  const finalEmoji03 = emojiList03[emojiList03.length - 1];
+
+  if (finalEmoji01 == finalEmoji02 && finalEmoji01 == finalEmoji03 && finalEmoji01 !== null) {
+    alert('Победа, победа - время обеда!');
+    money += 1000000;
+    WinSound.play();
+  }
+  else { 
+    console.log('Лох');
+    money -= 30;
+    check_money();
+  }
+  // Обновляем содержимое элементов с классами .first, .second и .third
+  document.querySelector(".first").innerHTML = `
+    <div class="inner">${emojiList01.join("")}</div>
+    <div class="inner">${finalEmoji01}</div>
+  `;
+  document.querySelector(".second").innerHTML = `
+    <div class="inner">${emojiList02.join("")}</div>
+    <div class="inner">${finalEmoji02}</div>
+  `;
+  document.querySelector(".third").innerHTML = `
+    <div class="inner">${emojiList03.join("")}</div>
+    <div class="inner">${finalEmoji03}</div>
+  `;
 }
 
 // Запуск функции emojiCode после полной загрузки документа
@@ -193,6 +217,7 @@ btnReload.addEventListener("click", function (e) {
  `;
 
  // Повторно запускаем emojiCode для обновления эмодзи
- emojiCode();
+  emojiCode();
+  saveMoney();
 });
 // крутки
