@@ -21,4 +21,14 @@ h2 {
     justify-content: center;
     align-items: center;
     width: 100%;
+    grid-template-columns: auto auto auto;
+    align-items: end;
+}
+[id^="lose-"] {
+    display: none;
+    transition: 1s;
+
+    & img {
+        width: 350px;
+    }
 }

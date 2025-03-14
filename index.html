@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Наебка 777</title>
-    <link rel="stylesheet" href="style/CSS/style.css?0.2" id="theme-link">
+    <link rel="stylesheet" href="style/CSS/style.css?0.2.5" id="theme-link">
     <script src="script/scr.js" defer></script>
 </head>
 
@@ -14,34 +14,45 @@
         <input type="text" id="money" readonly>
     </div>
     <h1>Добро пожаловать на Наебку777!</h1>
-    <p>Спасибо вам за вашу постоянную поддержку. Лига чиновников приходится ли вам работать в мини-корпорациях, чтобы получить
-    максимальную отдачу от мини-персонала, так что же вы делаете, когда приступаете к работе в крупных компаниях? Где,
-    Долорес знает!</p>
-    <div class="main"><!--Основное тело сайта, нужно для разбиение на grid блоки с их дальнейшим центрированием-->
-        <div class="wrapper"><!--Нужна как обертка для дальнейшего выравнивания и разбития на блоки-->
-            <div class="wrapper-1"><!--Это игра угадай множитель-->
-                <h2>Угадай множитель!</h2>
-                    <label for="fcount">Введите первый множитель:</label><br>
-                    <input type="text" id="fcount" name="fcount"><br>
-                    <label for="scount">Введите второй множитель:</label><br>
-                    <input type="text" id="scount" name="scount"><br>
-                    <input type="submit" id="sub"><br>
-                    <label fot="answer" id="answer1">Ответ:</label><br>
-                    <input type="text" id="answer">
+    <p>Спасибо вам за вашу постоянную поддержку. Лига чиновников приходится ли вам работать в мини-корпорациях, чтобы
+        получить
+        максимальную отдачу от мини-персонала, так что же вы делаете, когда приступаете к работе в крупных компаниях?
+        Где,
+        Долорес знает!</p>
+    <div class="main">
+        <div id="lose-left">
+            <img src="image/lose.gif" alt="">
+        </div>
+        <div class="wrapper">
+            <div class="wrapper-1">
+                <h1>Угадай множитель!</h1>
+                <span>буба</span>
                 <div class="factor">
-                    <div id="factor-1"><p>X2</p></div>
-                    <div id="factor-2"><p>X3</p></div>
-                    <div id="factor-3"><p>X4</p></div>
-                    <div id="factor-4"><p>X5</p></div>
+                    <div id="factor-1">
+                        <p>X2</p>
+                    </div>
+                    <div id="factor-2">
+                        <p>X3</p>
+                    </div>
+                    <div id="factor-3">
+                        <p>X4</p>
+                    </div>
+                    <div id="factor-4">
+                        <p>X5</p>
+                    </div>
                     <div id="factor-5">
-                            <label for="bet">Укажите размер ставки:</label>
-                            <input type="text" id="bet">
-                            <label for="koef">Выберите кэф</label>
-                            <input type="text" id="koef">
-                            <input type="submit" id="sub1" value="Сделать ставку">
-                            <label id="win">Вы выиграли:</label>
-                            <input type="text" id="win_input">
-                            <label id="lose">Вы проиграли</label>
+                        <h2 id="x-2">X2 Коэф</h2>
+                        <h2 id="x-3">X3 Коэф</h2>
+                        <h2 id="x-4">X4 Коэф</h2>
+                        <h2 id="x-5">X5 Коэф</h2>
+                        <label for="bet">Укажите размер ставки:</label>
+                        <input type="text" id="bet">
+                        <label for="koef">Выберите кэф</label>
+                        <input type="text" id="koef">
+                        <input type="submit" id="sub1" value="Сделать ставку">
+                        <label id="win">Вы выиграли:</label>
+                        <input type="text" id="win_input">
+                        <label id="lose">Вы проиграли</label>
                     </div>
                 </div>
             </div>
@@ -52,23 +63,26 @@
                     <input type="text" id="arr">
                     <button id="shell_but">Расчитать</button>
                 </div>
+                <div class="text-box">
+                    <h1 class="fire">Fire!Fire!Fire!</h1>
+                </div>
                 <h2>ТЕСТОВЫЙ ПОЛИГОН</h2>
             </div>
             <div class="wrapper-3">
                 <h2>Веселые крутки всего за 30 монет!</h2>
                 <div class="slot">
                     <div class="logo">🎰</div>
-                    <!-- Основной контейнер -->
                     <div class="container">
-                        <!-- Три слота -->
                         <div class="reel first"></div>
                         <div class="reel second"></div>
                         <div class="reel third"></div>
                     </div>
-                    <!-- Кнопка управления -->
                     <div class="controls">🔄</div>
                 </div>
             </div>
+        </div>
+        <div id="lose-right">
+            <img src="image/lose.gif" alt="">
         </div>
     </div>
 </body>

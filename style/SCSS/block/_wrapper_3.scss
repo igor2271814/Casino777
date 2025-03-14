@@ -1,99 +1,86 @@
 .wrapper-3 {
-    & .container {
-        /* Фиксированная ширина */
+    .container {
         width: 600px;
-        /* Фиксированная высота */
         height: 200px;
-        /* Обрезаем содержимое, выходящее за границы */
         overflow: hidden;
-        /* Позиционируем */
         position: relative;
-        /* Сдвигаем контейнер на середину экрана */
         left: 50%;
-        /* Компенсируем смещение, центрируя контейнер */
         margin-left: -300px;
-        /* Закругляем углы */
         border-radius: 30px;
-        /* Фон с радиальным градиентом*/
         background: radial-gradient(ellipse at center, #80b0ff 1%, #5d9bfd 65%);
-        /* Добавляем тень для объёма */
         box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
     }
-    & .controls,
+
+    .controls,
     .logo {
-        /* Фиксированная ширина */
         width: 80px;
-        /* Размер шрифта */
         font-size: 40px;
-        /* Выравнивание содержимого по центру */
         text-align: center;
-        /* Высота строки для центрирования */
         line-height: 76px;
-        /* Серый фон */
         background: #b5b5b5;
-        /* Отступы 0, автоцентрирование по горизонтали */
         margin: 0 auto 0;
-        /* Эффект свечения */
         box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
     }
-    /* Кнопка перезапуска */
-    & .controls {
-        /* Закругляем только нижние углы */
+
+    .controls {
         border-radius: 0 0 20px 20px;
-        /* Делаем курсор указателем, чтобы показать, что элемент кликабельный */
         cursor: pointer;
     }
-    /* Оформляем логотип */
-    & .logo {
-        /* Отступ сверху */
+
+    .logo {
         margin-top: 50px;
-        /* Закругляем только верхние углы */
         border-radius: 20px 20px 0 0;
     }
-    & .reel {
-        /* Абсолютное позиционирование внутри контейнера */
+
+    .reel {
         position: absolute;
-        /* Фиксированная ширина слота */
         width: 200px;
-        /* Высота больше контейнера для эффекта прокрутки */
-        height: 1800%;
-        /* Применяем анимацию прокрутки */
-        animation: reel 1.75s linear 2;
-        /* Обрезаем всё, что выходит за границы */
+        height: 100%;
+        animation: reel 1.75s ease-in-out;
         overflow: hidden;
+
+        .inner {
+            width: 200px;
+            height: 200px; // Высота каждого элемента
+            font-size: 130px;
+            line-height: 200px; // Центрирование по высоте
+            text-align: center;
+            overflow: hidden;
+
+            & .first {
+                transform: translateY(20px);
+            }
+            & .final {
+                transform: translateY(20px);
+                position: absolute;
+                bottom: 0;
+                display: block !important;
+                z-index: 10;
+            }
+        }
     }
-    & .inner {
-        /* Ширина слота */
-        width: 200px;
-        /* Высота элемента для корректного отображения эмодзи */
-        height: 66%;
-        /* Размер эмодзи */
-        font-size: 130px;
-        /* Высота строки для центрирования */
-        line-height: 216px;
-        /* Обрезаем всё, что выходит за границы */
-        overflow: hidden;
-    }
-    & .first {
+
+    .first {
         left: 0;
-        animation-delay: -0.5s;
+        animation-delay: -0.5s; // Задержка для первого слота
     }
-    & .second {
+
+    .second {
         left: 200px;
-        animation-delay: -0.2s;
+        animation-delay: -0.2s; // Задержка для второго слота
     }
-    & .third {
+
+    .third {
         left: 400px;
-        animation-delay: 0s;
+        animation-delay: 0s; // Задержка для третьего слота
     }
 }
+
 @keyframes reel {
     0% {
-        /* В начале анимации слот находится в исходном положении */
-        top: 0;
+        top: 0; // Начальное положение
     }
     100% {
-        /* Слот сдвигается вверх, создавая эффект прокрутки */
-        top: -1187%;
+        top: calc(-100% * 10 + 200px); // Конечное положение (останавливаем на финальном эмодзи)
     }
 }

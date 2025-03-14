@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "Lincoln Electric Over";
   src: url(../../../fonts/Lincoln_Electric_Over/LincolnElectric-Regular.ttf);
@@ -26,6 +25,16 @@ h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
+  grid-template-columns: auto auto auto;
+  align-items: end;
+}
+
+[id^=lose-] {
+  display: none;
+  transition: 1s;
+}
+[id^=lose-] img {
+  width: 350px;
 }
 
 label {
@@ -110,82 +119,94 @@ label {
   justify-items: center;
 }
 
-.wrapper-3 {
-  /* Кнопка перезапуска */
-  /* Оформляем логотип */
+[id^=x-] {
+  display: none;
 }
+
+.wrapper-2 .text-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper-2 .fire {
+  text-align: center;
+  color: rgb(255, 115, 0);
+  font-size: 10vw;
+  outline: none;
+  text-shadow: 0 0 20px crimson, 0 0 20px crimson, 0 0 10px crimson, 5px -10px 10px orange, -5px -10px 10px yellow;
+  animation: 2s amazing infinite alternate linear;
+}
+@keyframes amazing {
+  0% {
+    text-shadow: 0 10px 20px crimson, 0 0 20px red, 0 0 10px orange, 0 0 10px darkorange, -5px -5px 5px yellow, 10px -10px 10px yellow;
+  }
+  25% {
+    text-shadow: 0 10px 20px crimson, 0 0 20px red, 0 0 20px orange, -5px -5px 5px yellow, 5px -10px 10px yellow, -5px -10px 10px yellow;
+  }
+  50% {
+    text-shadow: 0 10px 20px crimson, 0 0 20px red, 0 0 10px orange, 0 0 10px darkorange, -5px -5px 5px yellow, 10px -10px 10px yellow;
+  }
+  75% {
+    text-shadow: 0 10px 20px crimson, 0 0 20px red, 0 0 20px orange, -5px -5px 5px yellow, 5px -10px 10px yellow, -5px -10px 10px yellow;
+  }
+  100% {
+    text-shadow: 0 10px 20px crimson, 0 0 20px red, 0 0 10px orange, 0 0 10px darkorange, -5px -5px 5px yellow, 10px -10px 10px yellow;
+  }
+}
+
 .wrapper-3 .container {
-  /* Фиксированная ширина */
   width: 600px;
-  /* Фиксированная высота */
   height: 200px;
-  /* Обрезаем содержимое, выходящее за границы */
   overflow: hidden;
-  /* Позиционируем */
   position: relative;
-  /* Сдвигаем контейнер на середину экрана */
   left: 50%;
-  /* Компенсируем смещение, центрируя контейнер */
   margin-left: -300px;
-  /* Закругляем углы */
   border-radius: 30px;
-  /* Фон с радиальным градиентом*/
   background: radial-gradient(ellipse at center, #80b0ff 1%, #5d9bfd 65%);
-  /* Добавляем тень для объёма */
   box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
 }
 .wrapper-3 .controls,
 .wrapper-3 .logo {
-  /* Фиксированная ширина */
   width: 80px;
-  /* Размер шрифта */
   font-size: 40px;
-  /* Выравнивание содержимого по центру */
   text-align: center;
-  /* Высота строки для центрирования */
   line-height: 76px;
-  /* Серый фон */
   background: #b5b5b5;
-  /* Отступы 0, автоцентрирование по горизонтали */
   margin: 0 auto 0;
-  /* Эффект свечения */
   box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
 }
 .wrapper-3 .controls {
-  /* Закругляем только нижние углы */
   border-radius: 0 0 20px 20px;
-  /* Делаем курсор указателем, чтобы показать, что элемент кликабельный */
   cursor: pointer;
 }
 .wrapper-3 .logo {
-  /* Отступ сверху */
   margin-top: 50px;
-  /* Закругляем только верхние углы */
   border-radius: 20px 20px 0 0;
 }
 .wrapper-3 .reel {
-  /* Абсолютное позиционирование внутри контейнера */
   position: absolute;
-  /* Фиксированная ширина слота */
   width: 200px;
-  /* Высота больше контейнера для эффекта прокрутки */
-  height: 1800%;
-  /* Применяем анимацию прокрутки */
-  animation: reel 1.75s linear 2;
-  /* Обрезаем всё, что выходит за границы */
+  height: 100%;
+  animation: reel 1.75s ease-in-out;
   overflow: hidden;
 }
-.wrapper-3 .inner {
-  /* Ширина слота */
+.wrapper-3 .reel .inner {
   width: 200px;
-  /* Высота элемента для корректного отображения эмодзи */
-  height: 66%;
-  /* Размер эмодзи */
+  height: 200px;
   font-size: 130px;
-  /* Высота строки для центрирования */
-  line-height: 216px;
-  /* Обрезаем всё, что выходит за границы */
+  line-height: 200px;
+  text-align: center;
   overflow: hidden;
+}
+.wrapper-3 .reel .inner .first {
+  transform: translateY(20px);
+}
+.wrapper-3 .reel .inner .final {
+  transform: translateY(20px);
+  position: absolute;
+  bottom: 0;
+  display: block !important;
+  z-index: 10;
 }
 .wrapper-3 .first {
   left: 0;
@@ -202,11 +223,9 @@ label {
 
 @keyframes reel {
   0% {
-    /* В начале анимации слот находится в исходном положении */
     top: 0;
   }
   100% {
-    /* Слот сдвигается вверх, создавая эффект прокрутки */
-    top: -1187%;
+    top: calc(-1000% + 200px);
   }
 }/*# sourceMappingURL=style.css.map */

@@ -83,3 +83,6 @@ label {
     display: grid;
     justify-items: center;
 }
+[id^="x-"] {
+    display: none;
+}

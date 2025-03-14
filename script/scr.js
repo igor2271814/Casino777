@@ -1,29 +1,28 @@
 const moneyInput = document.getElementById('money');
-// Преобразуем значение в число
-let money = Number(moneyInput.value) || 1000;
+let money = Number(moneyInput.value);
 const WinSound = new Audio('audio/winsound.mp3');
 const LoseSound = new Audio('audio/losesuond.mp3');
-const wright_arr = document.getElementById('arr'); //пока нигде не используется
 const main = document.querySelector('.main');
-function saveMoney() { 
-  // Обновляем поле ввода и сохраняем значение в localStorage
+
+function saveMoney() {
   moneyInput.value = money;
   localStorage.setItem('money', money);
 }
-// Восстанавливаем значение из localStorage
+
 const savedMoney = localStorage.getItem('money');
 if (savedMoney !== null) {
-  moneyInput.value = savedMoney; // Обновляем поле ввода
+  moneyInput.value = savedMoney;
 }
+
 const check_money = function () {
-    if (money <= 0) {
-        alert('Ты, конечно, лох, но играй дальше!');
-        localStorage.removeItem('money'); // Удаляем сохраненное значение в localStorage
-        money = 1000; // Обновляем переменную money
-        saveMoney();
-        return true;
-    }
-    return false;
+  if (money <= 0) {
+    alert('Ты, конечно, лох, но играй дальше!');
+    localStorage.removeItem('money');
+    money = 1000;
+    saveMoney();
+    return true;
+  }
+  return false;
 };
 
 function random(min, max) {
@@ -32,9 +31,9 @@ function random(min, max) {
 
 function bet_x(max) {
   check_money();
-  if (check_money()) { 
+  if (check_money()) {
     return;
-}
+  }
   const bet = Number(document.getElementById('bet').value);
   const koef = Number(document.getElementById('koef').value);
   const result = random(1, max);
@@ -46,7 +45,7 @@ function bet_x(max) {
   if (koef > max || koef < 1 || isNaN(koef) || isNaN(bet)) {
     alert('Ебанулся?');
     return;
-    }
+  }
   if (koef == result) {
     money = money + (bet * koef) - bet;
     WinSound.play();
@@ -71,33 +70,50 @@ function bet_x(max) {
     money = money - bet;
     document.getElementById('lose').style.opacity = '1';
     document.getElementById('lose').style.width = '100%';
-    }
-    saveMoney();
+  }
+  saveMoney();
 }
 
 document.getElementById('factor-1').onclick = function () {
   document.getElementById('factor-5').style.opacity = '1';
-    document.getElementById('sub1').onclick = function () { bet_x(2);}; 
+  document.getElementById('x-2').style.display = 'block';
+  document.getElementById('x-3').style.display = 'none';
+  document.getElementById('x-4').style.display = 'none';
+  document.getElementById('x-5').style.display = 'none';
+  document.getElementById('sub1').onclick = function () { bet_x(2); };
 };
+
 document.getElementById('factor-2').onclick = function () {
   document.getElementById('factor-5').style.opacity = '1';
-    document.getElementById('sub1').onclick = function () { bet_x(3);}; 
+  document.getElementById('x-2').style.display = 'none';
+  document.getElementById('x-3').style.display = 'block';
+  document.getElementById('x-4').style.display = 'none';
+  document.getElementById('x-5').style.display = 'none';
+  document.getElementById('sub1').onclick = function () { bet_x(3); };
 };
+
 document.getElementById('factor-3').onclick = function () {
   document.getElementById('factor-5').style.opacity = '1';
-    document.getElementById('sub1').onclick = function () { bet_x(4);}; 
+  document.getElementById('x-2').style.display = 'none';
+  document.getElementById('x-3').style.display = 'none';
+  document.getElementById('x-4').style.display = 'block';
+  document.getElementById('x-5').style.display = 'none';
+  document.getElementById('sub1').onclick = function () { bet_x(4); };
 };
+
 document.getElementById('factor-4').onclick = function () {
   document.getElementById('factor-5').style.opacity = '1';
-    document.getElementById('sub1').onclick = function () { bet_x(5);}; 
+  document.getElementById('x-2').style.display = 'none';
+  document.getElementById('x-3').style.display = 'none';
+  document.getElementById('x-4').style.display = 'none';
+  document.getElementById('x-5').style.display = 'block';
+  document.getElementById('sub1').onclick = function () { bet_x(5); };
 };
 
-
-//
-document.getElementById('shell_but').onclick = function (arr) { 
+document.getElementById('shell_but').onclick = function (arr) {
   let n = arr.length;
 
-  for (let gap = Math.floor(n / 2); gap > 0; gap /= 2) { 
+  for (let gap = Math.floor(n / 2); gap > 0; gap /= 2) {
     for (let i = gap; i < n; i++) {
       let temp = arr[i];
       let j;
@@ -108,116 +124,108 @@ document.getElementById('shell_but').onclick = function (arr) {
     }
   }
   return arr;
-}
+};
 
-// крутки
 function emojiCode() {
- // Удаляем все элементы с классом .inner
- document.querySelectorAll(".inner").forEach((el) => el.remove());
+  // Очищаем предыдущие значения
+  document.querySelectorAll(".inner").forEach((el) => el.remove());
 
- // Создаём пустые массивы для хранения эмодзи
- let emojiList01 = [];
- let emojiList02 = [];
- let emojiList03 = [];
+  let emojiList01 = [];
+  let emojiList02 = [];
+  let emojiList03 = [];
 
- // Массив с кодами эмодзи в формате Unicode
- const emojiValue = [
-   "1F95D",
-   "1F34B",
-   "1F350",
-   "1F353",
-   "1F34A",
-   "1F352",
-   "1F348",
-   "1F347",
-   "1F349",
-   "1F34F",
-   "1F34E",
-   "1F34D",
-   "1F345",
-   "1F951",
-   "1F34C",
-   "1F351",
-   "1F346",
-   "1F955",
-   "1F344",
-   "1F952",
- ];
+  const emojiValue = [
+    "1F95D", "1F34B", "1F350", "1F353", "1F34A", "1F352",
+    "1F348", "1F347", "1F349", "1F34F", "1F34E", "1F34D",
+    "1F345", "1F951", "1F34C", "1F351", "1F346", "1F955",
+    "1F344", "1F952",
+  ];
 
- // Функция для генерации случайного эмодзи и добавления его в массив
- function generateEmoji(emojiList) {
-   // Выбираем случайный код эмодзи из массива emojiValue
-   const emojiSingle =
-     emojiValue[Math.floor(Math.random() * emojiValue.length)];
+  function generateEmoji(emojiList) {
+    const emojiSingle = emojiValue[Math.floor(Math.random() * emojiValue.length)];
+    emojiList.push(`&#x${emojiSingle};`);
+  }
 
-   // Добавляем эмодзи в массив, используя HTML-код &#x...; для отображения Unicode-символов
-   emojiList.push(`&#x${emojiSingle};`);
- }
+  const n = 11;
 
- // Количество эмодзи, которые нужно сгенерировать для каждого списка
- const n = 11;
+  for (let i = 0; i < n; i++) {
+    generateEmoji(emojiList01);
+    generateEmoji(emojiList02);
+    generateEmoji(emojiList03);
+  }
 
- // Заполняем каждый массив 11 случайными эмодзи
- for (let i = 0; i < n; i++) {
-   generateEmoji(emojiList01);
-   generateEmoji(emojiList02);
-   generateEmoji(emojiList03);
- }
- // Обновляем содержимое элементов с классами .first, .second и .third,
-  // Задаем финальные эмодзи
+  // Получаем финальные эмодзи
   const finalEmoji01 = emojiList01[emojiList01.length - 1];
   const finalEmoji02 = emojiList02[emojiList02.length - 1];
   const finalEmoji03 = emojiList03[emojiList03.length - 1];
 
-  if (finalEmoji01 == finalEmoji02 && finalEmoji01 == finalEmoji03 && finalEmoji01 !== null) {
+  // Проверяем выигрыш
+  if (finalEmoji01 === finalEmoji02 && finalEmoji01 === finalEmoji03) {
     alert('Победа, победа - время обеда!');
     money += 1000000;
     WinSound.play();
-  }
-  else { 
-    console.log('Лох');
+  } else if (finalEmoji01 === finalEmoji02 || finalEmoji01 === finalEmoji03 || finalEmoji02 === finalEmoji03) {
+    money += 50000;
+    WinSound.play();
+  } else {
     money -= 30;
+    document.getElementById('lose-left').style.display = 'grid';
+    document.getElementById('lose-right').style.display = 'grid';
+    setTimeout(() => {
+      document.getElementById('lose-left').style.display = 'none';
+      document.getElementById('lose-right').style.display = 'none';
+    }, 7000);
     check_money();
   }
-  // Обновляем содержимое элементов с классами .first, .second и .third
+
+  // Отображаем начальные и финальные эмодзи
   document.querySelector(".first").innerHTML = `
-    <div class="inner">${emojiList01.join("")}</div>
-    <div class="inner">${finalEmoji01}</div>
+    <div class="inner start">${emojiList01[0]}</div>
+    ${emojiList01.slice(1, -1).map(emoji => `<div class="inner">${emoji}</div>`).join("")}
+    <div class="inner final">${finalEmoji01}</div>
   `;
   document.querySelector(".second").innerHTML = `
-    <div class="inner">${emojiList02.join("")}</div>
-    <div class="inner">${finalEmoji02}</div>
+    <div class="inner start">${emojiList02[0]}</div>
+    ${emojiList02.slice(1, -1).map(emoji => `<div class="inner">${emoji}</div>`).join("")}
+    <div class="inner final">${finalEmoji02}</div>
   `;
   document.querySelector(".third").innerHTML = `
-    <div class="inner">${emojiList03.join("")}</div>
-    <div class="inner">${finalEmoji03}</div>
+    <div class="inner start">${emojiList03[0]}</div>
+    ${emojiList03.slice(1, -1).map(emoji => `<div class="inner">${emoji}</div>`).join("")}
+    <div class="inner final">${finalEmoji03}</div>
   `;
-}
 
-// Запуск функции emojiCode после полной загрузки документа
+  // Убираем ненужные элементы после прокрутки
+  setTimeout(() => {
+    document.querySelectorAll(".reel .inner:not(.final)").forEach(el => {
+      el.style.display = 'none';
+    });
+  }, 1750);
+}
+document.addEventListener("DOMContentLoaded", () => {
+    const reel = document.querySelector(".wrapper-3 .reel");
+    const finalElement = document.querySelector(".inner.final");
+
+    reel.addEventListener("animationend", () => {
+        // После окончания анимации сместим финальный элемент внутрь
+        finalElement.style.transform = "translateY(0)";
+    });
+});
 document.addEventListener("DOMContentLoaded", emojiCode);
 
-// Получаем кнопку с классом .controls для управления процессом
 const btnReload = document.querySelector(".controls");
 
-// Добавляем обработчик события клика на кнопку
 btnReload.addEventListener("click", function (e) {
- // Предотвращаем стандартное поведение кнопки
- e.preventDefault();
+  e.preventDefault();
 
- // Удаляем все элементы с классом .reel, если есть
- document.querySelectorAll(".reel").forEach((el) => el.remove());
+  document.querySelectorAll(".reel").forEach((el) => el.remove());
 
- // Добавляем в .container три новых div-элемента с классами .reel (first, second, third),
- // которые затем будут заполнены эмодзи в emojiCode()
- document.querySelector(".container").innerHTML = `
-   <div class="reel first"></div>
-   <div class="reel second"></div>
-   <div class="reel third"></div>
- `;
+  document.querySelector(".container").innerHTML = `
+    <div class="reel first"></div>
+    <div class="reel second"></div>
+    <div class="reel third"></div>
+  `;
 
- // Повторно запускаем emojiCode для обновления эмодзи
   emojiCode();
   saveMoney();
 });
-// крутки
