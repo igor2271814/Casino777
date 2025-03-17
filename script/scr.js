@@ -75,7 +75,10 @@ function bet_x(max) {
 }
 
 document.getElementById('factor-1').onclick = function () {
-  document.getElementById('factor-5').style.opacity = '1';
+  document.getElementById('factor-5').style.display = 'grid';
+  setTimeout(() => {
+    document.getElementById('factor-5').style.opacity = '1';
+  }, 5);
   document.getElementById('x-2').style.display = 'block';
   document.getElementById('x-3').style.display = 'none';
   document.getElementById('x-4').style.display = 'none';
@@ -84,7 +87,10 @@ document.getElementById('factor-1').onclick = function () {
 };
 
 document.getElementById('factor-2').onclick = function () {
-  document.getElementById('factor-5').style.opacity = '1';
+  document.getElementById('factor-5').style.display = 'grid';
+  setTimeout(() => {
+    document.getElementById('factor-5').style.opacity = '1';
+  }, 5);
   document.getElementById('x-2').style.display = 'none';
   document.getElementById('x-3').style.display = 'block';
   document.getElementById('x-4').style.display = 'none';
@@ -93,7 +99,10 @@ document.getElementById('factor-2').onclick = function () {
 };
 
 document.getElementById('factor-3').onclick = function () {
-  document.getElementById('factor-5').style.opacity = '1';
+  document.getElementById('factor-5').style.display = 'grid';
+  setTimeout(() => {
+    document.getElementById('factor-5').style.opacity = '1';
+  }, 5);
   document.getElementById('x-2').style.display = 'none';
   document.getElementById('x-3').style.display = 'none';
   document.getElementById('x-4').style.display = 'block';
@@ -102,7 +111,10 @@ document.getElementById('factor-3').onclick = function () {
 };
 
 document.getElementById('factor-4').onclick = function () {
-  document.getElementById('factor-5').style.opacity = '1';
+  document.getElementById('factor-5').style.display = 'grid';
+  setTimeout(() => {
+    document.getElementById('factor-5').style.opacity = '1';
+  }, 5);
   document.getElementById('x-2').style.display = 'none';
   document.getElementById('x-3').style.display = 'none';
   document.getElementById('x-4').style.display = 'none';
@@ -163,10 +175,30 @@ function emojiCode() {
   if (finalEmoji01 === finalEmoji02 && finalEmoji01 === finalEmoji03) {
     alert('Победа, победа - время обеда!');
     money += 1000000;
+    main.style.backgroundImage = 'url("image/wingif.gif")';
+    main.style.backgroundSize = 'cover';
+    setTimeout(() => {
+      main.style.backgroundImage = 'none';
+    }, 7000);
     WinSound.play();
   } else if (finalEmoji01 === finalEmoji02 || finalEmoji01 === finalEmoji03 || finalEmoji02 === finalEmoji03) {
     money += 50000;
     WinSound.play();
+    main.style.backgroundImage = 'url("image/wingif.gif")';
+    main.style.backgroundSize = 'cover';
+    document.getElementById('fire').style.display = 'grid';
+    setTimeout(() => {
+      document.getElementById('fire').style.opacity = '1';
+    }, 500)
+    
+    setTimeout(() => {
+      main.style.backgroundImage = 'none';
+      document.getElementById('fire').style.opacity = '0';
+      document.getElementById('fire').style.display = 'none';
+    }, 7000);
+  }
+  else if (finalEmoji01 === "1F34B" || finalEmoji01 === "1F952" || finalEmoji01 === "1F348" || finalEmoji01 === "1F352") {
+    document.getElementById('fire').style.opacity = "1";
   } else {
     money -= 30;
     document.getElementById('lose-left').style.display = 'grid';
@@ -204,12 +236,21 @@ function emojiCode() {
 }
 document.addEventListener("DOMContentLoaded", () => {
     const reel = document.querySelector(".wrapper-3 .reel");
+
+    // Убедитесь, что emojiCode вызывается, чтобы создать элементы
+    emojiCode();
+
+    // Теперь, когда элементы созданы, можно получить доступ к finalElement
     const finalElement = document.querySelector(".inner.final");
 
-    reel.addEventListener("animationend", () => {
-        // После окончания анимации сместим финальный элемент внутрь
-        finalElement.style.transform = "translateY(0)";
-    });
+    if (finalElement) {
+        reel.addEventListener("animationend", () => {
+            // После окончания анимации сместим финальный элемент внутрь
+            finalElement.style.transform = "translateY(0)";
+        });
+    } else {
+        console.error("Финальный элемент не найден в DOM.");
+    }
 });
 document.addEventListener("DOMContentLoaded", emojiCode);
 

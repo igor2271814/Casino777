@@ -61,6 +61,7 @@ label {
         }
     }
     & #factor-5 {
+        display: none;
         grid-area: E;
         opacity: 0;
         transition: 0.7s;
