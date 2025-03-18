@@ -121,152 +121,110 @@ document.getElementById('factor-4').onclick = function () {
   document.getElementById('x-5').style.display = 'block';
   document.getElementById('sub1').onclick = function () { bet_x(5); };
 };
+//крутки
+const reels = [
+    ["🍒", "🍋", "🍊", "🍇", "🍉", "🍎", "🍓", "🍍", "🍑", "🍌", "🍕", "🍔", "🍟", "🍩", "🍫", "🍭", "🍦", "🍰", "🥤", "🍪"],
+    ["🍒", "🍋", "🍊", "🍇", "🍉", "🍎", "🍓", "🍍", "🍑", "🍌", "🍕", "🍔", "🍟", "🍩", "🍫", "🍭", "🍦", "🍰", "🥤", "🍪"],
+    ["🍒", "🍋", "🍊", "🍇", "🍉", "🍎", "🍓", "🍍", "🍑", "🍌", "🍕", "🍔", "🍟", "🍩", "🍫", "🍭", "🍦", "🍰", "🥤", "🍪"]
+];
 
-document.getElementById('shell_but').onclick = function (arr) {
-  let n = arr.length;
+const reelElements = [document.getElementById("reel1"), document.getElementById("reel2"), document.getElementById("reel3")];
+const spinButton = document.getElementById("spin-button");
+const resultElement = document.getElementById("result");
 
-  for (let gap = Math.floor(n / 2); gap > 0; gap /= 2) {
-    for (let i = gap; i < n; i++) {
-      let temp = arr[i];
-      let j;
-      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
-        arr[j] = arr[j - gap];
-      }
-      arr[j] = temp;
-    }
-  }
-  return arr;
-};
-
-function emojiCode() {
-  // Очищаем предыдущие значения
-  document.querySelectorAll(".inner").forEach((el) => el.remove());
-
-  let emojiList01 = [];
-  let emojiList02 = [];
-  let emojiList03 = [];
-
-  const emojiValue = [
-    "1F95D", "1F34B", "1F350", "1F353", "1F34A", "1F352",
-    "1F348", "1F347", "1F349", "1F34F", "1F34E", "1F34D",
-    "1F345", "1F951", "1F34C", "1F351", "1F346", "1F955",
-    "1F344", "1F952",
-  ];
-
-  function generateEmoji(emojiList) {
-    const emojiSingle = emojiValue[Math.floor(Math.random() * emojiValue.length)];
-    emojiList.push(`&#x${emojiSingle};`);
-  }
-
-  const n = 11;
-
-  for (let i = 0; i < n; i++) {
-    generateEmoji(emojiList01);
-    generateEmoji(emojiList02);
-    generateEmoji(emojiList03);
-  }
-
-  // Получаем финальные эмодзи
-  const finalEmoji01 = emojiList01[emojiList01.length - 1];
-  const finalEmoji02 = emojiList02[emojiList02.length - 1];
-  const finalEmoji03 = emojiList03[emojiList03.length - 1];
-
-  // Проверяем выигрыш
-  if (finalEmoji01 === finalEmoji02 && finalEmoji01 === finalEmoji03) {
-    alert('Победа, победа - время обеда!');
-    money += 1000000;
-    main.style.backgroundImage = 'url("image/wingif.gif")';
-    main.style.backgroundSize = 'cover';
-    setTimeout(() => {
-      main.style.backgroundImage = 'none';
-    }, 7000);
-    WinSound.play();
-  } else if (finalEmoji01 === finalEmoji02 || finalEmoji01 === finalEmoji03 || finalEmoji02 === finalEmoji03) {
-    money += 50000;
-    WinSound.play();
-    main.style.backgroundImage = 'url("image/wingif.gif")';
-    main.style.backgroundSize = 'cover';
-    document.getElementById('fire').style.display = 'grid';
-    setTimeout(() => {
-      document.getElementById('fire').style.opacity = '1';
-    }, 500)
-    
-    setTimeout(() => {
-      main.style.backgroundImage = 'none';
-      document.getElementById('fire').style.opacity = '0';
-      document.getElementById('fire').style.display = 'none';
-    }, 7000);
-  }
-  else if (finalEmoji01 === "1F34B" || finalEmoji01 === "1F952" || finalEmoji01 === "1F348" || finalEmoji01 === "1F352") {
-    document.getElementById('fire').style.opacity = "1";
-  } else {
-    money -= 30;
-    document.getElementById('lose-left').style.display = 'grid';
-    document.getElementById('lose-right').style.display = 'grid';
-    setTimeout(() => {
-      document.getElementById('lose-left').style.display = 'none';
-      document.getElementById('lose-right').style.display = 'none';
-    }, 7000);
-    check_money();
-  }
-
-  // Отображаем начальные и финальные эмодзи
-  document.querySelector(".first").innerHTML = `
-    <div class="inner start">${emojiList01[0]}</div>
-    ${emojiList01.slice(1, -1).map(emoji => `<div class="inner">${emoji}</div>`).join("")}
-    <div class="inner final">${finalEmoji01}</div>
-  `;
-  document.querySelector(".second").innerHTML = `
-    <div class="inner start">${emojiList02[0]}</div>
-    ${emojiList02.slice(1, -1).map(emoji => `<div class="inner">${emoji}</div>`).join("")}
-    <div class="inner final">${finalEmoji02}</div>
-  `;
-  document.querySelector(".third").innerHTML = `
-    <div class="inner start">${emojiList03[0]}</div>
-    ${emojiList03.slice(1, -1).map(emoji => `<div class="inner">${emoji}</div>`).join("")}
-    <div class="inner final">${finalEmoji03}</div>
-  `;
-
-  // Убираем ненужные элементы после прокрутки
-  setTimeout(() => {
-    document.querySelectorAll(".reel .inner:not(.final)").forEach(el => {
-      el.style.display = 'none';
+// Функция для запуска вращения всех барабанов
+function startSpinning() {
+    reelElements.forEach((reelElement) => {
+        reelElement.classList.add("spinning"); // Добавляем класс с бесконечной анимацией
     });
-  }, 1750);
 }
-document.addEventListener("DOMContentLoaded", () => {
-    const reel = document.querySelector(".wrapper-3 .reel");
 
-    // Убедитесь, что emojiCode вызывается, чтобы создать элементы
-    emojiCode();
+// Функция для остановки одного барабана
+function stopReel(reelElement, symbols, delay) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * symbols.length);
+            const offset = -randomIndex * 220; // Смещение для остановки
+            reelElement.style.transform = `translateY(${offset}px)`;
+            reelElement.classList.remove("spinning"); // Останавливаем анимацию
+            resolve(symbols[randomIndex]);
+        }, delay);
+    });
+}
 
-    // Теперь, когда элементы созданы, можно получить доступ к finalElement
-    const finalElement = document.querySelector(".inner.final");
+// Функция для поочередной остановки барабанов
+async function spinAllReels() {
+    const results = [];
 
-    if (finalElement) {
-        reel.addEventListener("animationend", () => {
-            // После окончания анимации сместим финальный элемент внутрь
-            finalElement.style.transform = "translateY(0)";
-        });
+    // Запускаем вращение всех барабанов
+    startSpinning();
+
+    // Останавливаем первый барабан через 1.5 секунды
+    results.push(await stopReel(reelElements[0], reels[0], 1500));
+
+    // Останавливаем второй барабан через еще 1.5 секунды (всего 3 секунды)
+    results.push(await stopReel(reelElements[1], reels[1], 3000));
+
+    // Останавливаем третий барабан через еще 1.5 секунды (всего 4.5 секунды)
+    results.push(await stopReel(reelElements[2], reels[2], 4500));
+
+    return results;
+}
+
+
+
+function checkResults(results) {
+  saveMoney();
+  check_money();
+    if (results[0] === results[1] && results[1] === results[2]) {
+      resultElement.textContent = "Победа! Все три символа совпали!";
+      money += 1000000;
+      main.style.backgroundImage = 'url("image/wingif.gif")';
+      main.style.backgroundSize = 'cover';
+      setTimeout(() => {
+        main.style.backgroundImage = 'none';
+      }, 7000);
+    WinSound.play();
+    } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
+      resultElement.textContent = "У вас есть совпадение!";
+      money += 5000;
+      WinSound.play();
+      main.style.backgroundImage = 'url("image/wingif.gif")';
+      main.style.backgroundSize = 'cover';
+      document.getElementById('fire').style.display = 'grid';
+      setTimeout(() => {
+        document.getElementById('fire').style.opacity = '1';
+      }, 500)
+      
+      setTimeout(() => {
+        main.style.backgroundImage = 'none';
+        document.getElementById('fire').style.opacity = '0';
+        document.getElementById('fire').style.display = 'none';
+      }, 7000);
     } else {
-        console.error("Финальный элемент не найден в DOM.");
+      resultElement.textContent = "Попробуйте еще раз!";
+      money -= 30;
+      document.getElementById('lose-left').style.display = 'grid';
+      document.getElementById('lose-right').style.display = 'grid';
+      setTimeout(() => {
+        document.getElementById('lose-left').style.display = 'none';
+        document.getElementById('lose-right').style.display = 'none';
+      }, 7000);
+      check_money();
+  }
+  saveMoney();
+  check_money();
+}
+// Обработчик клика на кнопку "Крутить"
+spinButton.addEventListener("click", async () => {
+    spinButton.disabled = true; // Блокируем кнопку на время вращения
+    try {
+        const results = await spinAllReels(); // Вращаем барабаны
+        checkResults(results); // Проверяем результаты
+    } catch (error) {
+        console.error("Ошибка:", error);
+    } finally {
+        spinButton.disabled = false; // Разблокируем кнопку
     }
 });
-document.addEventListener("DOMContentLoaded", emojiCode);
-
-const btnReload = document.querySelector(".controls");
-
-btnReload.addEventListener("click", function (e) {
-  e.preventDefault();
-
-  document.querySelectorAll(".reel").forEach((el) => el.remove());
-
-  document.querySelector(".container").innerHTML = `
-    <div class="reel first"></div>
-    <div class="reel second"></div>
-    <div class="reel third"></div>
-  `;
-
-  emojiCode();
-  saveMoney();
-});
+//крутки

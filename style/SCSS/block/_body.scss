@@ -23,6 +23,17 @@ h2 {
     width: 100%;
     grid-template-columns: auto auto auto;
     align-items: end;
+
+    & .wrapper {
+        display: grid;
+        width: 70vw;
+        background: -webkit- radial-gradient(at center, #010288, #0e011b);
+        background: -moz- radial-gradient(at center, #010288, #0e011b);
+        background: radial-gradient(at center, #010288, #0e011b);
+        -webkit-box-shadow: 0px 0px 15px 9px rgba(34, 60, 80, 0.2);
+        -moz-box-shadow: 0px 0px 15px 9px rgba(34, 60, 80, 0.2);
+        box-shadow: 0px 0px 15px 9px rgba(34, 60, 80, 0.2);
+    }
 }
 [id^="lose-"] {
     display: none;

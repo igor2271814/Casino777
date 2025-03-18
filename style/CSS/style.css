@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Lincoln Electric Over";
   src: url(../../fonts/Lincoln_Electric_Over/LincolnElectric-Regular.ttf);
@@ -27,6 +28,14 @@ h2 {
   width: 100%;
   grid-template-columns: auto auto auto;
   align-items: end;
+}
+.main .wrapper {
+  display: grid;
+  width: 70vw;
+  background: -webkit- radial-gradient(at center, #010288, #0e011b);
+  background: -moz- radial-gradient(at center, #010288, #0e011b);
+  background: radial-gradient(at center, #010288, #0e011b);
+  box-shadow: 0px 0px 15px 9px rgba(34, 60, 80, 0.2);
 }
 
 [id^=lose-] {
@@ -245,85 +254,77 @@ label {
   display: none;
 }
 
+.wrapper-3 {
+  /* Контейнер для слот-машины */
+  /* Контейнер для каждого барабана */
+  /* Стили для барабана */
+  /* Стили для каждого элемента внутри барабана */
+  /* Стили для кнопки */
+  /* Стили для блока с результатом */
+}
 .wrapper-3 img {
   opacity: 0;
   transition: 1s;
 }
-.wrapper-3 .container {
-  width: 600px;
-  height: 200px;
+.wrapper-3 .slot-machine {
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  margin-left: -390px;
   overflow: hidden;
   position: relative;
   left: 50%;
-  margin-left: -300px;
+  gap: 20px; /* Расстояние между барабанами */
+  margin-bottom: 20px;
   border-radius: 30px;
   background: radial-gradient(ellipse at center, #5a0096 1%, #8400db 65%);
   box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
+  width: 690px;
+  height: 240px;
 }
-.wrapper-3 .controls,
-.wrapper-3 .logo {
-  width: 80px;
-  font-size: 40px;
-  text-align: center;
-  line-height: 76px;
-  background: #390053;
-  margin: 0 auto 0;
-  box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
-}
-.wrapper-3 .controls {
-  border-radius: 0 0 20px 20px;
-  cursor: pointer;
-}
-.wrapper-3 .logo {
-  margin-top: 50px;
-  border-radius: 20px 20px 0 0;
+.wrapper-3 .reel-container {
+  width: 230px;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
 }
 .wrapper-3 .reel {
   position: absolute;
-  width: 200px;
-  height: 100%;
-  animation: reel 1.75s ease-in-out;
-  overflow: hidden;
-}
-.wrapper-3 .reel .inner {
-  width: 200px;
-  height: 200px;
-  font-size: 130px;
-  line-height: 200px;
-  text-align: center;
-  overflow: hidden;
-}
-.wrapper-3 .reel .inner .first {
-  transform: translateY(20px);
-}
-.wrapper-3 .reel .inner .final {
-  transform: translateY(20px);
-  position: absolute;
-  bottom: 0;
-  display: block !important;
-  z-index: 10;
-}
-.wrapper-3 .first {
+  top: 0;
   left: 0;
-  animation-delay: -0.5s;
+  width: 100%;
+  text-align: center;
+  font-size: 200px;
 }
-.wrapper-3 .second {
-  left: 200px;
-  animation-delay: -0.2s;
+.wrapper-3 .reel div {
+  height: 220px; /* Высота каждого элемента */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.wrapper-3 .third {
-  left: 400px;
-  animation-delay: 0s;
+.wrapper-3 #spin-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer; /* Курсор в виде указателя */
+}
+.wrapper-3 #result {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-@keyframes reel {
+@keyframes spin {
   0% {
-    top: 0;
+    transform: translateY(0);
   }
   100% {
-    top: calc(-1000% + 200px);
+    transform: translateY(-100%);
   }
 }
+.spinning {
+  animation: spin 0.5s linear infinite; /* Бесконечная анимация */
+}
+
 .wrapper-4 {
   display: grid;
   justify-items: center;

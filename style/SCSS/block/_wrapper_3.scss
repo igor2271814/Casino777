@@ -3,88 +3,73 @@
         opacity: 0;
         transition: 1s;
     }
-    .container {
-        width: 600px;
-        height: 200px;
+    /* Контейнер для слот-машины */
+    .slot-machine {
+        display: flex;
+        justify-items: center;
+        justify-content: center;
+        margin-left: -390px;
         overflow: hidden;
         position: relative;
         left: 50%;
-        margin-left: -300px;
+        gap: 20px; /* Расстояние между барабанами */
+        margin-bottom: 20px;
         border-radius: 30px;
         background: radial-gradient(ellipse at center, #5a0096 1%, #8400db 65%);
         box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
+        width: 690px;
+        height: 240px;
     }
 
-    .controls,
-    .logo {
-        width: 80px;
-        font-size: 40px;
-        text-align: center;
-        line-height: 76px;
-        background: #390053;
-        margin: 0 auto 0;
-        box-shadow: 10px 10px 50px rgba(255, 255, 255, 0.2);
+    /* Контейнер для каждого барабана */
+    .reel-container {
+        width: 230px;
+        height: 220px;
+        overflow: hidden;
+        position: relative;
     }
 
-    .controls {
-        border-radius: 0 0 20px 20px;
-        cursor: pointer;
-    }
-
-    .logo {
-        margin-top: 50px;
-        border-radius: 20px 20px 0 0;
-    }
-
+    /* Стили для барабана */
     .reel {
         position: absolute;
-        width: 200px;
-        height: 100%;
-        animation: reel 1.75s ease-in-out;
-        overflow: hidden;
-
-        .inner {
-            width: 200px;
-            height: 200px; // Высота каждого элемента
-            font-size: 130px;
-            line-height: 200px; // Центрирование по высоте
-            text-align: center;
-            overflow: hidden;
-
-            & .first {
-                transform: translateY(20px);
-            }
-            & .final {
-                transform: translateY(20px);
-                position: absolute;
-                bottom: 0;
-                display: block !important;
-                z-index: 10;
-            }
-        }
-    }
-
-    .first {
+        top: 0;
         left: 0;
-        animation-delay: -0.5s; // Задержка для первого слота
+        width: 100%;
+        text-align: center;
+        font-size: 200px;
     }
 
-    .second {
-        left: 200px;
-        animation-delay: -0.2s; // Задержка для второго слота
+    /* Стили для каждого элемента внутри барабана */
+    .reel div {
+        height: 220px; /* Высота каждого элемента */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .third {
-        left: 400px;
-        animation-delay: 0s; // Задержка для третьего слота
+    /* Стили для кнопки */
+    #spin-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer; /* Курсор в виде указателя */
+    }
+
+    /* Стили для блока с результатом */
+    #result {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+@keyframes spin {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
     }
 }
 
-@keyframes reel {
-    0% {
-        top: 0; // Начальное положение
-    }
-    100% {
-        top: calc(-100% * 10 + 200px); // Конечное положение (останавливаем на финальном эмодзи)
-    }
+.spinning {
+    animation: spin 0.5s linear infinite; /* Бесконечная анимация */
 }
