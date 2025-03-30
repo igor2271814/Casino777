@@ -329,124 +329,45 @@ label {
   display: grid;
   justify-items: center;
 }
-.wrapper-4 .flip-card {
-  background-color: transparent;
-  width: 240px;
-  height: 154px;
-  perspective: 1000px;
+.wrapper-4 .input-group {
+  margin: 15px 0;
+}
+.wrapper-4 input {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.wrapper-4 #crush-input {
+  width: 150px;
+}
+.wrapper-4 button {
+  padding: 12px 20px;
+  background: #4caf50;
   color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
 }
-.wrapper-4 .heading_8264 {
-  position: absolute;
-  letter-spacing: 0.2em;
-  font-size: 0.5em;
-  top: 2em;
-  left: 18.6em;
+.wrapper-4 button:hover {
+  background: #45a049;
 }
-.wrapper-4 .logo_card {
-  position: absolute;
-  top: 6.8em;
-  left: 11.7em;
-}
-.wrapper-4 .chip {
-  position: absolute;
-  top: 2.3em;
-  left: 1.5em;
-}
-.wrapper-4 .contactless {
-  position: absolute;
-  top: 3.5em;
-  left: 12.4em;
-}
-.wrapper-4 .number {
-  position: absolute;
-  font-weight: bold;
-  font-size: 0.6em;
-  top: 8.3em;
-  left: 1.6em;
-}
-.wrapper-4 .valid_thru {
-  position: absolute;
-  font-weight: bold;
-  top: 635.8em;
-  font-size: 0.01em;
-  left: 140.3em;
-}
-.wrapper-4 .date_8264 {
-  position: absolute;
-  font-weight: bold;
-  font-size: 0.5em;
-  top: 13.6em;
-  left: 3.2em;
-}
-.wrapper-4 .name {
-  position: absolute;
-  font-weight: bold;
-  font-size: 0.5em;
-  top: 16.1em;
-  left: 2em;
-}
-.wrapper-4 .strip {
-  position: absolute;
-  background-color: black;
-  width: 15em;
-  height: 1.5em;
-  top: 2.4em;
-  background: repeating-linear-gradient(45deg, #303030, #303030 10px, #202020 10px, #202020 20px);
-}
-.wrapper-4 .mstrip {
-  position: absolute;
-  background-color: rgb(255, 255, 255);
-  width: 8em;
-  height: 0.8em;
-  top: 5em;
-  left: 0.8em;
-  border-radius: 2.5px;
-}
-.wrapper-4 .sstrip {
-  position: absolute;
-  background-color: rgb(255, 255, 255);
-  width: 4.1em;
-  height: 0.8em;
-  top: 5em;
-  left: 10em;
-  border-radius: 2.5px;
-}
-.wrapper-4 .code {
-  font-weight: bold;
-  text-align: center;
-  margin: 0.2em;
+.wrapper-4 #result-crush {
+  font-size: 18px;
+  margin: 20px 0;
+  padding: 10px;
+  background: #f8f8f8;
   color: black;
+  border-radius: 5px;
 }
-.wrapper-4 .flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
+.wrapper-4 #crash-chart {
+  margin: 30px 0;
 }
-.wrapper-4 .flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-.wrapper-4 .flip-card-front,
-.wrapper-4 .flip-card-back {
-  box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
-  position: absolute;
+.wrapper-4 .flex-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 1rem;
+  gap: 10px;
 }
-.wrapper-4 .flip-card-front {
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
-  background-color: #171717;
-}
-.wrapper-4 .flip-card-back {
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
-  background-color: #171717;
-  transform: rotateY(180deg);
+.wrapper-4 .flex-container input {
+  flex: 1;
 }/*# sourceMappingURL=style.css.map */

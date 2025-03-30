@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Coin Crush (Custom)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        #result {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+
+        #crash-chart {
+            margin: 30px 0;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .flex-container input {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Coin Crush</h1>
+
+    <div class="input-group">
+        <label>Ваша ставка:</label>
+        <input type="number" id="bet-input" min="1" value="100" placeholder="Введите сумму">
+    </div>
+
+    <div class="input-group">
+        <label>Выберите Crush (множитель):</label>
+        <div class="flex-container">
+            <input type="number" id="crush-input" min="1.1" step="0.1" value="2.0" placeholder="Например, 2.0">
+            <button onclick="startGame()">Играть</button>
+        </div>
+    </div>
+
+    <div id="result"></div>
+
+    <canvas id="crash-chart"></canvas>
+
+    <script>
+        let chart;
+        let animationInterval;
+        let currentMultiplier = 1.0;
+        let targetCrush = 0;
+        let isGameRunning = false;
+
+        // Инициализация графика
+        function initChart() {
+            const ctx = document.getElementById('crash-chart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Текущий множитель',
+                        data: [],
+                        borderColor: '#4CAF50',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Множитель' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Время' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Запуск игры
+        function startGame() {
+            if (isGameRunning) {
+                alert("Дождитесь окончания текущей игры!");
+                return;
+            }
+
+            const bet = parseFloat(document.getElementById('bet-input').value);
+            targetCrush = parseFloat(document.getElementById('crush-input').value);
+
+            if (!bet || bet < 1) {
+                alert("Введите корректную ставку!");
+                return;
+            }
+
+            if (!targetCrush || targetCrush < 1.1) {
+                alert("Crush должен быть ≥ 1.1");
+                return;
+            }
+
+            isGameRunning = true;
+            currentMultiplier = 1.0;
+            document.getElementById('result').textContent = "Игра началась...";
+            document.getElementById('crush-input').readOnly = true;
+
+            // Очистка графика
+            chart.data.labels = [];
+            chart.data.datasets[0].data = [];
+            chart.update();
+
+            // Запуск анимации
+            animationInterval = setInterval(updateMultiplier, 100);
+        }
+
+        // Обновление множителя
+        function updateMultiplier() {
+            // Шанс краха увеличивается с ростом множителя
+            const crashChance = 0.01 + (currentMultiplier * 0.005);
+
+            if (Math.random() < crashChance) {
+                endGame(false);
+                return;
+            }
+
+            currentMultiplier += 0.05;
+
+            // Обновление графика
+            chart.data.labels.push(currentMultiplier.toFixed(2) + 'x');
+            chart.data.datasets[0].data.push(currentMultiplier);
+            chart.update();
+
+            // Автоматическая победа при достижении цели
+            if (currentMultiplier >= targetCrush) {
+                endGame(true);
+            }
+        }
+
+        // Завершение игры
+        function endGame(isWin) {
+            clearInterval(animationInterval);
+            isGameRunning = false;
+            document.getElementById('crush-input').readOnly = false;
+
+            const bet = parseFloat(document.getElementById('bet-input').value);
+            const winAmount = isWin ? (bet * targetCrush).toFixed(2) : 0;
+
+            const resultText = isWin
+                ? `🏆 Победа! Множитель достиг ${currentMultiplier.toFixed(2)}x (ваш Crush: ${targetCrush}x). Выигрыш: ${winAmount}`
+                : `💥 Крах! Множитель упал на ${currentMultiplier.toFixed(2)}x (нужно было ${targetCrush}x)`;
+
+            document.getElementById('result').innerHTML = resultText;
+        }
+
+        // Инициализация при загрузке
+        window.onload = initChart;
+    </script>
+</body>
+
+</html>

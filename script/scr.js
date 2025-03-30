@@ -1,4 +1,4 @@
-const moneyInput = document.getElementById('money');
+export const moneyInput = document.getElementById('money');
 let money = Number(moneyInput.value);
 const WinSound = new Audio('audio/winsound.mp3');
 const LoseSound = new Audio('audio/losesuond.mp3');
@@ -228,3 +228,129 @@ spinButton.addEventListener("click", async () => {
     }
 });
 //крутки
+//coin crush
+let chart;
+let animationInterval;
+let currentMultiplier = 1.0;
+let targetCrush = 0;
+let isGameRunning = false;
+
+// Инициализация графика
+function initChart() {
+    const ctx = document.getElementById('crash-chart').getContext('2d');
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Текущий множитель',
+                data: [],
+                borderColor: '#4CAF50',
+                borderWidth: 3,
+                fill: false,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Множитель' }
+                },
+                x: {
+                    title: { display: true, text: 'Время' }
+                }
+            }
+        }
+    });
+}
+
+// Запуск игры
+document.getElementById('start-game').addEventListener('click', startGame)
+function startGame() {
+  console.log(money);
+  check_money();
+    if (isGameRunning) {
+        alert("Дождитесь окончания текущей игры!");
+        return;
+    }
+
+    const bet = parseFloat(document.getElementById('bet-input').value);
+    targetCrush = parseFloat(document.getElementById('crush-input').value);
+
+    if (!bet || bet < 1) {
+        alert("Введите корректную ставку!");
+        return;
+    }
+
+    if (!targetCrush || targetCrush < 1.1) {
+        alert("Crush должен быть ≥ 1.1");
+        return;
+    }
+
+    isGameRunning = true;
+    currentMultiplier = 1.0;
+    document.getElementById('result-crush').textContent = "Игра началась...";
+    document.getElementById('crush-input').readOnly = true;
+
+    // Очистка графика
+    chart.data.labels = [];
+    chart.data.datasets[0].data = [];
+    chart.update();
+
+    // Запуск анимации
+    animationInterval = setInterval(updateMultiplier, 100);
+}
+
+// Обновление множителя
+function updateMultiplier() {
+    // Шанс краха увеличивается с ростом множителя
+    const crashChance = 0.01 + (currentMultiplier * 0.005);
+
+    if (Math.random() < crashChance) {
+        endGame(false);
+        return;
+    }
+
+    currentMultiplier += 0.05;
+
+    // Обновление графика
+    chart.data.labels.push(currentMultiplier.toFixed(2) + 'x');
+    chart.data.datasets[0].data.push(currentMultiplier);
+    chart.update();
+
+    // Автоматическая победа при достижении цели
+    if (currentMultiplier >= targetCrush) {
+        endGame(true);
+    }
+}
+
+// Завершение игры
+function endGame(isWin) {
+    clearInterval(animationInterval);
+    isGameRunning = false;
+    document.getElementById('crush-input').readOnly = false;
+
+    const bet = parseFloat(document.getElementById('bet-input').value);
+    const winAmount = Number(isWin ? (bet * targetCrush).toFixed(2) : 0);
+    if (isWin) {
+      money = money + winAmount;
+      saveMoney();
+      check_money(); 
+  }
+    else {
+      money = money - winAmount;
+      saveMoney();
+      check_money(); 
+  }
+
+    const resultText = isWin
+        ? `🏆 Победа! Множитель достиг ${currentMultiplier.toFixed(2)}x (ваш Crush: ${targetCrush}x). Выигрыш: ${winAmount}`
+        : `💥 Крах! Множитель упал на ${currentMultiplier.toFixed(2)}x (нужно было ${targetCrush}x)\nДеньги: ${money -= winAmount}`;
+    document.getElementById('result-crush').innerHTML = resultText;
+}
+
+// Инициализация при загрузке
+window.onload = initChart;
+//
